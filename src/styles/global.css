@@ -160,11 +160,7 @@ button:disabled {
   transform: translateX(0);
 }
 
-/*
-  Physical back cover:
-  Occupies only the RIGHT half of the book.
-  It stays stationary while the front cover rotates.
-*/
+/* Physical back cover */
 
 .book-base {
   position: absolute;
@@ -379,15 +375,11 @@ button:disabled {
   will-change: transform;
 }
 
-/* Keep the cover above the pages while it is flipping. */
-
 .book-assembly.is-animating .book-cover,
 .book-assembly.is-closing .book-cover,
 .book-assembly.is-closed .book-cover {
   z-index: 5;
 }
-
-/* Once the book is open, put the cover behind the pages. */
 
 .book-assembly.is-open:not(.is-animating) .book-cover {
   z-index: 5;
@@ -888,7 +880,7 @@ button:disabled {
   pointer-events: none;
 }
 
-/* Artwork lightbox */
+/* Artwork lightbox - desktop */
 
 .lightbox {
   position: fixed;
@@ -1087,84 +1079,143 @@ button:disabled {
     font-size: 15px;
   }
 
-    /* Hide the spine on mobile */
-    .mobile-stage .spine-shadow {
-      display: none;
-    }
+  /* Hide the spine on mobile */
 
-    /* Open-book navigation adjustments only */
-    .journal-reading .mobile-stage {
-      position: relative;
-      padding-bottom: 48px;
-    }
+  .mobile-stage .spine-shadow {
+    display: none;
+  }
 
-    .journal-reading .mobile-stage .book-assembly {
-      margin-bottom: 48px;
-    }
+  /* Open-book navigation adjustments only */
 
-    .journal-reading .mobile-stage .nav-button {
-      position: absolute;
-      bottom: 50px;
-      z-index: 12;
-      width: 36px;
-      height: 36px;
-      flex: 0 0 36px;
-    }
+  .journal-reading .mobile-stage {
+    position: relative;
+    padding-bottom: 48px;
+  }
 
-    .journal-reading .mobile-stage .nav-button.prev {
-      left: max(0px, calc((100% - 380px) / 2));
-    }
+  .journal-reading .mobile-stage .book-assembly {
+    margin-bottom: 48px;
+  }
 
-    .journal-reading .mobile-stage .nav-button.next {
-      right: max(0px, calc((100% - 380px) / 2));
-    }
+  .journal-reading .mobile-stage .nav-button {
+    position: absolute;
+    bottom: 50px;
+    z-index: 12;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
 
-    .journal-reading .mobile-stage .nav-button svg {
-      width: 18px;
-    }
+  .journal-reading .mobile-stage .nav-button.prev {
+    left: max(0px, calc((100% - 380px) / 2));
+  }
 
-    /* Move only the opened-book progress bar upward */
-    .journal-reading .reader-footer {
-      flex-wrap: nowrap;
-      font-size: 8px;
-      gap: 9px;
-      padding: 0 5px;
-      margin-top: -50px;
-    }
+  .journal-reading .mobile-stage .nav-button.next {
+    right: max(0px, calc((100% - 380px) / 2));
+  }
 
-    .reader-header {
-      padding: 0 5px;
-    }
+  .journal-reading .mobile-stage .nav-button svg {
+    width: 18px;
+  }
+
+  /* Move only the opened-book progress bar upward */
+
+  .journal-reading .reader-footer {
+    flex-wrap: nowrap;
+    font-size: 8px;
+    gap: 9px;
+    padding: 0 5px;
+    margin-top: -50px;
+  }
+
+  .reader-header {
+    padding: 0 5px;
+  }
 
   .keyboard-hint {
     display: none;
   }
 
-  .keyboard-hint {
-    display: none;
+  /* Mobile artwork lightbox */
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: block;
+    height: 100vh;
+    height: 100dvh;
+    padding: 60px 16px 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
   }
 
   .lightbox-content {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     max-width: 550px;
+    height: auto;
+    max-height: none;
+    margin: 0 auto;
+    gap: 18px;
+    overflow: visible;
+    touch-action: pan-y;
   }
 
   .lightbox-content > img {
-    max-height: 55vh;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    background: #21182b;
+  }
+
+  .lightbox-content > .art-placeholder.large {
+    width: 100%;
+    height: auto;
+    min-height: 250px;
+    max-height: none;
+  }
+
+  .lightbox-content > div:not(.art-placeholder) {
+    width: 100%;
+    min-height: 0;
+    text-align: center;
   }
 
   .lightbox-content h2 {
     font-size: 27px;
+    margin: 5px 0;
   }
 
   .lightbox-content p {
-    margin-top: 5px;
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 5px 0;
+  }
+
+  .art-placeholder.large {
+    width: 100%;
+    height: auto;
+    min-height: 250px;
+  }
+
+  .art-placeholder.large code {
+    max-width: 90%;
   }
 
   .lightbox-close {
-    right: 14px;
+    position: fixed;
     top: 14px;
+    right: 14px;
+    z-index: 10000;
+    width: 38px;
+    height: 38px;
   }
 
   .cover-kicker {
@@ -1196,9 +1247,8 @@ button:disabled {
     bottom: 0;
     width: 100%;
     height: 100%;
-
     border-radius: 5px 9px 9px 5px;
-    }
+  }
 }
 
 /* Hide the physical back cover when the book is fully closed. */
@@ -1290,14 +1340,11 @@ button:disabled {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
   display: grid;
   place-items: center;
-
   color: #d3b477;
   font-family: Georgia, serif;
   font-size: 56px;
   text-shadow: 0 0 16px #d4b36b55;
-
   pointer-events: none;
 }
