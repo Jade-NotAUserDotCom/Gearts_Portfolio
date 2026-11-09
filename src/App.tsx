@@ -42,8 +42,6 @@ export default function App() {
   const currentSpread = Math.floor(currentPage / 2)
   const totalSpreads = Math.ceil((totalPages + 1) / 2)
 
-  // The cover occupies the first spread's left side.
-  // The first content page is on the right.
   const leftPage =
     currentSpread === 0
       ? undefined
@@ -123,7 +121,6 @@ export default function App() {
     }
   }
 
-  // Open the journal and show the cover during its opening animation.
   const openJournal = () => {
     if (opened || bookAnimating) return
 
@@ -135,7 +132,6 @@ export default function App() {
     void startMusic()
   }
 
-  // Restore the cover before playing the closing animation.
   const returnToCover = () => {
     if (!opened || bookAnimating || turning) return
 
@@ -203,7 +199,6 @@ export default function App() {
     })
   }
 
-  // Hide the cover only after the first forward page turn completes.
   const finishTurn = () => {
     if (!turning) return
 
@@ -283,43 +278,69 @@ export default function App() {
         ))}
       </div>
 
-      <section
+      <motion.section
+        layout={!isMobile}
+        transition={{
+          layout: {
+            duration: BOOK_ANIMATION_DURATION,
+            ease: BOOK_EASING,
+          },
+        }}
         className={`journal-scene ${
           opened ? 'journal-reading' : 'journal-cover'
         }`}
       >
-        {opened && (
-          <header className="reader-header">
-            <div className="reader-brand">
-              <BookOpen size={17} />
-              <span>The Dreamer's Journal</span>
-            </div>
+        <AnimatePresence>
+          {opened && (
+            <motion.header
+              className="reader-header"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{
+                duration: 0.65,
+                delay: 0.2,
+                ease: BOOK_EASING
+              }}
+            >
+              <div className="reader-brand">
+                <BookOpen size={17} />
+                <span>The Dreamer's Journal</span>
+              </div>
 
-            <div className="reader-actions">
-              <button
-                className="icon-button"
-                onClick={toggleMusic}
-                title={music ? 'Turn music off' : 'Turn music on'}
-                aria-label={music ? 'Turn music off' : 'Turn music on'}
-                disabled={bookAnimating}
-              >
-                {music ? <Music2 size={18} /> : <VolumeX size={18} />}
-              </button>
+              <div className="reader-actions">
+                <button
+                  className="icon-button"
+                  onClick={toggleMusic}
+                  title={music ? 'Turn music off' : 'Turn music on'}
+                  aria-label={music ? 'Turn music off' : 'Turn music on'}
+                  disabled={bookAnimating}
+                >
+                  {music ? <Music2 size={18} /> : <VolumeX size={18} />}
+                </button>
 
-              <button
-                className="icon-button"
-                onClick={returnToCover}
-                title="Return to cover"
-                aria-label="Return to cover"
-                disabled={bookAnimating}
-              >
-                <RotateCcw size={17} />
-              </button>
-            </div>
-          </header>
-        )}
+                <button
+                  className="icon-button"
+                  onClick={returnToCover}
+                  title="Return to cover"
+                  aria-label="Return to cover"
+                  disabled={bookAnimating}
+                >
+                  <RotateCcw size={17} />
+                </button>
+              </div>
+            </motion.header>
+          )}
+        </AnimatePresence>
 
-        <div
+        <motion.div
+          layout={!isMobile}
+          transition={{
+            layout: {
+              duration: BOOK_ANIMATION_DURATION,
+              ease: BOOK_EASING
+            }
+          }}
           className={`book-stage integrated-stage ${
             isMobile ? 'mobile-stage' : 'desktop-stage'
           }`}
@@ -512,7 +533,37 @@ export default function App() {
               <ArrowRight />
             </button>
           )}
-        </div>
+        </motion.div>
+
+        <AnimatePresence>
+          {opened && (
+            <motion.footer
+              className="reader-footer"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{
+                duration: 0.65,
+                delay: 0.25,
+                ease: BOOK_EASING
+              }}
+            >
+              <span>
+                {isMobile
+                  ? `PAGE ${currentPage + 1} / ${totalPages}`
+                  : `SPREAD ${currentSpread + 1} / ${totalSpreads}`}
+              </span>
+
+              <div className="progress-track">
+                <span style={{ width: `${progress}%` }} />
+              </div>
+
+              <span className="keyboard-hint">
+                {isMobile ? 'Swipe to turn pages' : '← → to turn pages'}
+              </span>
+            </motion.footer>
+          )}
+        </AnimatePresence>
 
         {!opened && !bookAnimating && (
           <motion.p
@@ -523,25 +574,7 @@ export default function App() {
             Tap the journal to open
           </motion.p>
         )}
-
-        {opened && (
-          <footer className="reader-footer">
-            <span>
-              {isMobile
-                ? `PAGE ${currentPage + 1} / ${totalPages}`
-                : `SPREAD ${currentSpread + 1} / ${totalSpreads}`}
-            </span>
-
-            <div className="progress-track">
-              <span style={{ width: `${progress}%` }} />
-            </div>
-
-            <span className="keyboard-hint">
-              {isMobile ? 'Swipe to turn pages' : '← → to turn pages'}
-            </span>
-          </footer>
-        )}
-      </section>
+      </motion.section>
 
       <div className="ambient-footer">
         MADE WITH CURIOSITY & IMAGINATION
