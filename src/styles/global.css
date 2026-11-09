@@ -1087,29 +1087,57 @@ button:disabled {
     font-size: 15px;
   }
 
-  .mobile-stage .spine-shadow {
+    /* Hide the spine on mobile */
+    .mobile-stage .spine-shadow {
+      display: none;
+    }
+
+    /* Open-book navigation adjustments only */
+    .journal-reading .mobile-stage {
+      position: relative;
+      padding-bottom: 48px;
+    }
+
+    .journal-reading .mobile-stage .book-assembly {
+      margin-bottom: 48px;
+    }
+
+    .journal-reading .mobile-stage .nav-button {
+      position: absolute;
+      bottom: 50px;
+      z-index: 12;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+    }
+
+    .journal-reading .mobile-stage .nav-button.prev {
+      left: max(0px, calc((100% - 380px) / 2));
+    }
+
+    .journal-reading .mobile-stage .nav-button.next {
+      right: max(0px, calc((100% - 380px) / 2));
+    }
+
+    .journal-reading .mobile-stage .nav-button svg {
+      width: 18px;
+    }
+
+    /* Move only the opened-book progress bar upward */
+    .journal-reading .reader-footer {
+      flex-wrap: nowrap;
+      font-size: 8px;
+      gap: 9px;
+      padding: 0 5px;
+      margin-top: -50px;
+    }
+
+    .reader-header {
+      padding: 0 5px;
+    }
+
+  .keyboard-hint {
     display: none;
-  }
-
-  .mobile-stage .nav-button {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
-  }
-
-  .mobile-stage .nav-button svg {
-    width: 16px;
-  }
-
-  .reader-header {
-    padding: 0 5px;
-  }
-
-  .reader-footer {
-    flex-wrap: nowrap;
-    font-size: 8px;
-    gap: 9px;
-    padding: 0 5px;
   }
 
   .keyboard-hint {
