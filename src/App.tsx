@@ -260,7 +260,12 @@ export default function App() {
 
   return (
     <main className="scene">
-      <audio ref={audioRef} src="/bgm.mp3" loop preload="auto" />
+      <audio
+        ref={audioRef}
+        src={`${import.meta.env.BASE_URL}bgm.mp3`}
+        loop
+        preload="auto"
+      />
 
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
