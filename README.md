@@ -1,4 +1,4 @@
-# The Dreamer's Journal
+# A Dreamer's Journal
 
 A React + TypeScript + Vite starter for a fantasy-themed digital art portfolio. It includes a closed illustrated cover, a CSS-based 3D hover effect, a two-page desktop reading layout, a single-page mobile layout, page navigation, artwork preview overlays, and editable sample content.
 
@@ -22,30 +22,6 @@ To create a production build:
 npm run build
 npm run preview
 ```
-
-## Add your artwork
-
-Create this folder:
-
-```text
-public/
-  artworks/
-    school-01.jpg
-    school-02.jpg
-    school-03.jpg
-    school-04.jpg
-    school-05.jpg
-    school-06.jpg
-    personal-01.jpg
-    personal-02.jpg
-    personal-03.jpg
-```
-
-Use those filenames or change the `file` values in `src/data/pages.ts`. If an image is not present, the portfolio displays a placeholder instead. You can use `.png`, `.jpg`, or `.webp`; make sure the path in `pages.ts` matches the filename.
-
-## Personalize the text
-
-Edit `src/data/pages.ts`. Replace `[Your Name]`, the sample biography, reflection, artwork titles and descriptions, email, and social links with your own details.
 
 ## Main files
 
